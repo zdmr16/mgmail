@@ -53,7 +53,7 @@ export class UserService {
 		return {
 			httpOnly: true,
 			expires: expires ?? dayjs().add(168, "hours").toDate(),
-			secure: NODE_ENV !== "development",
+			secure: process.env.API_URI?.startsWith("https") ?? false,
 			sameSite: "lax",
 			path: "/",
 		} as const;
