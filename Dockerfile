@@ -17,7 +17,7 @@ FROM node:20-alpine3.20
 
 WORKDIR /app
 
-RUN apk add --no-cache bash nginx
+RUN apk add --no-cache bash nginx gettext
 
 COPY --from=base /app/packages/api/dist /app/packages/api/
 COPY --from=base /app/packages/dashboard/.next /app/packages/dashboard/.next
@@ -30,6 +30,7 @@ COPY deployment/entry.sh deployment/replace-variables.sh /app/
 
 RUN chmod +x /app/entry.sh /app/replace-variables.sh
 
-EXPOSE 3000 4000 5000
+# Coolify will expose the PORT it assigns
+EXPOSE ${PORT:-3000}
 
 CMD ["sh", "/app/entry.sh"]
