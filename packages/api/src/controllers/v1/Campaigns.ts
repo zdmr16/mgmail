@@ -162,6 +162,7 @@ export class Campaigns {
 				style: campaign.style,
 				email: campaign.email,
 				from: campaign.from,
+				reply: campaign.reply,
 			},
 		});
 
@@ -182,25 +183,25 @@ export class Campaigns {
 			throw new NotFound("project");
 		}
 
-		let { subject, body, recipients, style, email, from } = CampaignSchemas.create.parse(req.body);
-
+		let { subject, body, recipients, style, email, from, reply } = CampaignSchemas.create.parse(req.body);
+	
 		if (email && !project.verified) {
 			throw new NotAllowed("You need to attach a domain to your project to customize the sender address");
 		}
-
+	
 		if (email && email.split("@")[1] !== project.email?.split("@")[1]) {
 			throw new NotAllowed("The sender address must be the same domain as the project's email address");
 		}
-
+	
 		if (recipients.length === 1 && recipients[0] === "all") {
 			const projectContacts = await prisma.contact.findMany({
 				where: { projectId: project.id, subscribed: true },
 				select: { id: true },
 			});
-
+	
 			recipients = projectContacts.map((c) => c.id);
 		}
-
+	
 		const campaign = await prisma.campaign.create({
 			data: {
 				projectId: project.id,
@@ -209,6 +210,7 @@ export class Campaigns {
 				style,
 				from: from === "" ? null : from,
 				email: email === "" ? null : email,
+				reply: reply === "" ? null : reply,
 			},
 		});
 
@@ -265,31 +267,31 @@ export class Campaigns {
 			throw new NotFound("project");
 		}
 
-		let { id, subject, body, recipients, style, email, from } = CampaignSchemas.update.parse(req.body);
-
+		let { id, subject, body, recipients, style, email, from, reply } = CampaignSchemas.update.parse(req.body);
+	
 		if (email && !project.verified) {
 			throw new NotAllowed("You need to attach a domain to your project to customize the sender address");
 		}
-
+	
 		if (email && email.split("@")[1] !== project.email?.split("@")[1]) {
 			throw new NotAllowed("The sender address must be the same domain as the project's email address");
 		}
-
+	
 		if (recipients.length === 1 && recipients[0] === "all") {
 			const projectContacts = await prisma.contact.findMany({
 				where: { projectId: project.id, subscribed: true },
 				select: { id: true },
 			});
-
+	
 			recipients = projectContacts.map((c) => c.id);
 		}
-
+	
 		let campaign = await CampaignService.id(id);
-
+	
 		if (!campaign || campaign.projectId !== project.id) {
 			throw new NotFound("campaign");
 		}
-
+	
 		campaign = await prisma.campaign.update({
 			where: { id },
 			data: {
@@ -298,6 +300,7 @@ export class Campaigns {
 				style,
 				from: from === "" ? null : from,
 				email: email === "" ? null : email,
+				reply: reply === "" ? null : reply,
 			},
 			include: {
 				recipients: { select: { id: true } },

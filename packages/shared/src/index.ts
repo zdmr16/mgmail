@@ -140,6 +140,14 @@ export const CampaignSchemas = {
 		body: z.string().min(1, "Body needs to be at least 1 character long"),
 		email: email.nullish().or(z.literal("")),
 		from: z.string().nullish(),
+		reply: z
+			.string()
+			.regex(
+				/^[^\s@]+@[^\s@]+\.[^\s@]+(,\s*[^\s@]+@[^\s@]+\.[^\s@]+)*$/,
+				"Invalid reply-to email format. Use comma-separated emails."
+			)
+			.nullish()
+			.or(z.literal("")),
 		recipients: z.array(z.string()),
 		style: z.nativeEnum(TemplateStyle).default("PLUNK"),
 	}),
@@ -152,6 +160,14 @@ export const CampaignSchemas = {
 		body: z.string().min(1, "Body needs to be at least 1 character long"),
 		email: email.nullish().or(z.literal("")),
 		from: z.string().nullish(),
+		reply: z
+			.string()
+			.regex(
+				/^[^\s@]+@[^\s@]+\.[^\s@]+(,\s*[^\s@]+@[^\s@]+\.[^\s@]+)*$/,
+				"Invalid reply-to email format. Use comma-separated emails."
+			)
+			.nullish()
+			.or(z.literal("")),
 		recipients: z.array(z.string()),
 		style: z.nativeEnum(TemplateStyle).default("PLUNK"),
 	}),

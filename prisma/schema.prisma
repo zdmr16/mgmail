@@ -170,6 +170,7 @@ model Campaign {
   body    String
   email   String?
   from    String?
+  reply   String?
 
   status    CampaignStatus @default(DRAFT)
   delivered DateTime?

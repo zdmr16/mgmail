@@ -34,6 +34,7 @@ interface CampaignValues {
 	body: string;
 	email?: string;
 	from?: string;
+	reply?: string;
 	recipients: string[];
 	style: "PLUNK" | "HTML";
 }
@@ -449,6 +450,16 @@ export default function Index() {
 									placeholder={`${project.from ?? project.name}`}
 									register={register("from")}
 									error={errors.from}
+								/>
+							)}
+				
+							{project.verified && (
+								<Input
+									className={"sm:col-span-6"}
+									label={"Reply-To Email(s)"}
+									placeholder={"reply@example.com, support@example.com"}
+									register={register("reply")}
+									error={errors.reply}
 								/>
 							)}
 						</div>

@@ -75,7 +75,7 @@ export class Tasks {
 			} else if (campaign) {
 				email = project.verified && project.email ? campaign.email ?? project.email : "no-reply@useplunk.dev";
 				name = campaign.from ?? project.from ?? project.name;
-
+		
 				({ subject, body } = EmailService.format({
 					subject: campaign.subject,
 					body: campaign.body,
@@ -86,12 +86,13 @@ export class Tasks {
 					},
 				}));
 			}
-
+		
 			const { messageId } = await EmailService.send({
 				from: {
 					name,
 					email,
 				},
+				reply: campaign?.reply || undefined,
 				to: [contact.email],
 				content: {
 					subject,
