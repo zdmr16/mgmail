@@ -39,4 +39,4 @@ if (!APP_URI.startsWith("http")) {
 export const AWS_REGION = validateEnv("AWS_REGION");
 export const AWS_ACCESS_KEY_ID = validateEnv("AWS_ACCESS_KEY_ID");
 export const AWS_SECRET_ACCESS_KEY = validateEnv("AWS_SECRET_ACCESS_KEY");
-export const AWS_SES_CONFIGURATION_SET = validateEnv("AWS_SES_CONFIGURATION_SET");
+export const AWS_SES_CONFIGURATION_SET = validateEnv("AWS_SES_CONFIGURATION_SET", "");
