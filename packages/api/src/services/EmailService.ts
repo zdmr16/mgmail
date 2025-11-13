@@ -37,8 +37,7 @@ export class EmailService {
 		let unsubscribeHeaders = "";
 		if (containsUnsubscribeLink?.[1]) {
 			const unsubscribeId = containsUnsubscribeLink[1];
-			const appUri = APP_URI.startsWith("https://") ? APP_URI : `https://${APP_URI}`;
-			unsubscribeHeaders = `List-Unsubscribe: <mailto:unsubscribe@${from.email.split("@")[1]}>, <${appUri}/unsubscribe/${unsubscribeId}>
+			unsubscribeHeaders = `List-Unsubscribe: <mailto:unsubscribe@${from.email.split("@")[1]}>, <https://medgulet.com/unsubscribe/${unsubscribeId}>
 	List-Unsubscribe-Post: List-Unsubscribe=One-Click`;
 		}
 
@@ -137,8 +136,8 @@ ${
           <td>
             <hr style="border: none; border-top: 1px solid #eaeaea; width: 100%; margin-top: 12px; margin-bottom: 12px;">
             <p style="font-size: 12px; line-height: 24px; margin: 16px 0; text-align: center; color: rgb(64, 64, 64);">
-              You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please 
-              <a href="${APP_URI.replace(/^https?:\/\//, "https://")}/unsubscribe/${contact.id}">update your preferences</a>.
+              You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please
+              <a href="https://medgulet.com/unsubscribe/${contact.id}">update your preferences</a>.
             </p>
           </td>
         </tr>
@@ -503,7 +502,7 @@ ${
               <mj-divider border-width="2px" border-color="#f5f5f5"></mj-divider>
               <mj-text align="center">
                 <p style="color: #a3a3a3; text-decoration: none; font-size: 12px; line-height: 1.7142857;">
-                  You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please <a style="text-decoration: underline" href="${APP_URI.replace(/^https?:\/\//, "https://")}/unsubscribe/${contact.id}" target="_blank">update your preferences</a>.
+                  You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please <a style="text-decoration: underline" href="https://medgulet.com/unsubscribe/${contact.id}" target="_blank">update your preferences</a>.
                 </p>
               </mj-text>
             `
