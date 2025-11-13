@@ -126,25 +126,26 @@ ${EmailService.breakLongLines(attachment.content, 76, true)}
 		const html = content.replace(/<img/g, "<img");
 
 		if (isHtml) {
-			return `${html}
-
-${
-	footer.unsubscribe
-		? ` <table align="center" width="100%" style="max-width: 480px; width: 100%; margin-left: auto; margin-right: auto; font-family: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border: 0; cellpadding: 0; cellspacing: 0;" role="presentation">
-      <tbody>
-        <tr>
-          <td>
-            <hr style="border: none; border-top: 1px solid #eaeaea; width: 100%; margin-top: 12px; margin-bottom: 12px;">
-            <p style="font-size: 12px; line-height: 24px; margin: 16px 0; text-align: center; color: rgb(64, 64, 64);">
-              You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please
-              <a href="https://medgulet.com/unsubscribe/${contact.id}">update your preferences</a>.
-            </p>
-          </td>
-        </tr>
-      </tbody>
-    </table>`
-		: ""
-}`;
+			return `${html}`;
+			
+			// Otomatik unsubscribe footer devre dışı - manuel olarak kampanya içeriğine eklenebilir
+			// ${
+			// 	footer.unsubscribe
+			// 		? ` <table align="center" width="100%" style="max-width: 480px; width: 100%; margin-left: auto; margin-right: auto; font-family: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; border: 0; cellpadding: 0; cellspacing: 0;" role="presentation">
+			//       <tbody>
+			//         <tr>
+			//           <td>
+			//             <hr style="border: none; border-top: 1px solid #eaeaea; width: 100%; margin-top: 12px; margin-bottom: 12px;">
+			//             <p style="font-size: 12px; line-height: 24px; margin: 16px 0; text-align: center; color: rgb(64, 64, 64);">
+			//               You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please
+			//               <a href="https://medgulet.com/unsubscribe/${contact.id}">update your preferences</a>.
+			//             </p>
+			//           </td>
+			//         </tr>
+			//       </tbody>
+			//     </table>`
+			// 		: ""
+			// }
 		}
 		return mjml2html(
 			`<mjml>
@@ -496,18 +497,6 @@ ${
     </mj-section>
      <mj-section>
       <mj-column>
-        ${
-									footer.unsubscribe
-										? `
-              <mj-divider border-width="2px" border-color="#f5f5f5"></mj-divider>
-              <mj-text align="center">
-                <p style="color: #a3a3a3; text-decoration: none; font-size: 12px; line-height: 1.7142857;">
-                  You received this email because you agreed to receive emails from ${project.name}. If you no longer wish to receive emails like this, please <a style="text-decoration: underline" href="https://medgulet.com/unsubscribe/${contact.id}" target="_blank">update your preferences</a>.
-                </p>
-              </mj-text>
-            `
-										: ""
-								}
       </mj-column>
     </mj-section>
   </mj-body>
